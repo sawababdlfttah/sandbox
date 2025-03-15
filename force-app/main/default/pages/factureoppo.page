@@ -1,0 +1,250 @@
+<apex:page standardController="Opportunity" renderAs="pdf" applyHtmlTag="false" showHeader="false" sidebar="false">
+    <apex:stylesheet value="{!URLFOR($Resource.InvoiceStyles)}"/>
+    <style>
+        /* Enhanced CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            width: 800px;
+        }
+
+        .invoice-container {
+            border: 2px solid #1a356e;
+            padding: 25px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #1a356e;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #1a356e;
+            font-size: 24pt;
+            margin: 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .company-logo {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .invoice-details {
+            text-align: right;
+            font-size: 9pt;
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .left-tables table {
+            margin-bottom: 15px;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .header-table th, .header-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .header-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .dotted-border {
+            border: 1px dashed #999;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .addressed-to {
+            width: 40%;
+            margin-left: 30px;
+        }
+
+        .addressed-to h3 {
+            color: #1a356e;
+            margin-top: 0;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .invoice-table th {
+            background-color: #1a356e;
+            color: white;
+            font-weight: bold;
+        }
+
+        .invoice-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #1a356e;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding: 20px 0;
+        }
+
+        .bank-details, .signature {
+            width: 45%;
+        }
+
+        .signature-box {
+            height: 80px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+
+        .company-info {
+            text-align: center;
+            font-size: 8pt;
+            color: #666;
+            margin-top: 30px;
+        }
+
+        .amount-bold {
+            font-weight: bold;
+            color: #1a356e;
+        }
+
+        .total-row td {
+            font-weight: bold;
+            background-color: #e9ecef !important;
+        }
+    </style>
+
+    <div class="invoice-container">
+        <!-- Header Section -->
+        <div class="header">
+            <img src="{!URLFOR($Resource.InvoiceStyles)}" class="company-logo" alt="Company Logo"/>
+            <h1>Facture num:23842</h1>
+            <div class="invoice-details">
+                <p>Service Maroc S.A.</p>
+                <p>26, Place des Nations Unies</p>
+                <p>Casablanca - Morocco</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="top-section">
+            <div class="left-tables">
+                <table class="header-table">
+                    <tr>
+                        <th>Date d'émission</th>
+                        <th>Facture n°</th>
+                    </tr>
+                    <tr>
+                        <td><apex:outputText value="{0,date,dd/MM/yyyy}">
+                            <apex:param value="{!Opportunity.CloseDate}" />
+                        </apex:outputText></td>
+                        <td class="amount-bold">Facture</td>
+                    </tr>
+                </table>
+                
+                <!-- Rest of the tables remain similar but with enhanced styling -->
+            </div>
+            
+            <div class="addressed-to dotted-border">
+                <h3>Adressée à</h3>
+                <p>Leadway</p>
+                <p>ICE : 154</p>
+            </div>
+        </div>
+
+        <!-- Enhanced Table -->
+    <table class="invoice-table">
+            <tr>
+                <th>Description</th>
+                <th>Montant</th>
+            </tr>
+            <tr>
+                <td>Produit : {!Opportunity.OrderNumber__c}, {!Opportunity.Name} 
+                Assisté : {!Opportunity.OrderNumber__c} Adressée : {!Opportunity.OrderNumber__c}</td>
+                <td>{!Opportunity.Amount}</td>
+            </tr>
+            <tr>
+                <td>Prime HT: {!Opportunity.Amount} MAD</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Net à payer: {!Opportunity.Amount} MAD</td> 
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- Footer Sections with improved layout -->
+        <div class="footer">
+            <p><strong>Arrêtée la présente facture à la somme de :</strong><br/>
+            <apex:outputText value="{0, number, words}">
+                <apex:param value="{!Opportunity.Amount}" />
+            </apex:outputText> MAD</p>
+            
+            <div class="notice">
+                <p>NB: Le délai de paiement de cette facture est de 5 jours à compter de sa date de réception</p>
+            </div>
+        </div>
+
+        <!-- Bottom Section with better spacing -->
+        <div class="bottom-section">
+            <div class="bank-details">
+                <h3>Coordonnées bancaires</h3>
+                <!-- Bank details with improved typography -->
+            </div>
+            
+            <div class="signature">
+                <h3>Signature et cachet</h3>
+                <div class="signature-box"></div>
+            </div>
+        </div>
+
+        <!-- Company Info Footer -->
+        <footer class="company-info">
+            <!-- Consistent styling for address block -->
+        </footer>
+    </div>
+</apex:page>

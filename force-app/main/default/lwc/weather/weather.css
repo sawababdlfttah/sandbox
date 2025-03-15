@@ -1,0 +1,65 @@
+/* Center the container and give padding */
+.weather-container {
+    padding: 1rem;
+}
+
+/* Add a shadow and rounded corners to the weather box */
+.weather-box {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Weather icon styling */
+.weather-icon lightning-icon {
+    background-color: #f3f4f6;
+    padding: 1rem;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Weather details font customization */
+.weather-details {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #4a4a4a;
+}
+
+/* Button customization */
+.custom-button {
+    background-color: #0176d3;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #005bb5;
+}
+
+/* Input customization */
+.custom-input lightning-input {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+}
+
+/* Add spacing between inputs */
+.custom-input {
+    margin-bottom: 1rem;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .weather-details {
+        font-size: 0.9rem;
+    }
+
+    .custom-input,
+    .custom-button {
+        width: 100%;
+    }
+
+    .weather-icon lightning-icon {
+        padding: 0.5rem;
+    }
+}

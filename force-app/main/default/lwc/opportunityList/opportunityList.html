@@ -1,0 +1,82 @@
+<template>
+    <lightning-card title="Opportunities" icon-name="standard:opportunity">
+        <div class="slds-m-around_medium">
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col">
+                    <lightning-combobox
+                        name="recordType"
+                        label="Filter by Record Type"
+                        value={selectedRecordType}
+                        options={recordTypeOptions}
+                        onchange={handleRecordTypeChange}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="nameInput">Search Opportunity Name</label>
+                        <div class="slds-form-element__control">
+                            <input 
+                                id="nameInput"
+                                type="text" 
+                                class="slds-input" 
+                                value={searchName}
+                                onkeyup={handleNameSearch}
+                            />
+                        </div>
+                        <div if:true={showNameSuggestions} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <template for:each={nameSuggestions} for:item="suggestion">
+                                    <li key={suggestion} role="presentation" class="slds-listbox__item">
+                                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" 
+                                             role="option"
+                                             onclick={handleNameSelection}
+                                             data-value={suggestion}>
+                                            <span class="slds-media__body">
+                                                <span class="slds-truncate">{suggestion}</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col">
+                    <lightning-input 
+                        type="date" 
+                        name="closeDate" 
+                        label="Close Date"
+                        value={selectedDate}
+                        onchange={handleDateChange}>
+                    </lightning-input>
+                </div>
+            </div>
+
+            <div class="slds-m-bottom_medium">
+                <lightning-button 
+                    label="Search" 
+                    variant="brand" 
+                    onclick={handleSearch}>
+                </lightning-button>
+            </div>
+
+            <template if:true={filteredOpportunities}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={filteredOpportunities}
+                    columns={columns}
+                    hide-checkbox-column>
+                </lightning-datatable>
+                <div class="slds-m-top_small">
+                    <p>Total Opportunities: {totalOpportunities}</p>
+                    <p>Total Amount: <lightning-formatted-number value={totalAmount} format-style="currency" currency-code="USD"></lightning-formatted-number></p>
+                </div>
+            </template>
+            <template if:true={error}>
+                <p>Error: {error}</p>
+            </template>
+        </div>
+
+     
+    </lightning-card>
+</template>

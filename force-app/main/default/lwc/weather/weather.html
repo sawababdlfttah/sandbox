@@ -1,0 +1,99 @@
+<template>
+    <lightning-card title="Weather Report" icon-name="utility:weather">
+        <!-- Input Section -->
+        <div class="weather-container">
+            <template if:true={componentLocation}>
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                    <!-- City Input -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input 
+                            label="City Name" 
+                            value={cityName}
+                            onchange={handleCityChange}
+                            class="custom-input">
+                        </lightning-input>
+                        <lightning-button 
+                            label="Get Weather" 
+                            onclick={getWeatherByCity}
+                            class="slds-m-top_small custom-button">
+                        </lightning-button>
+                    </div>
+
+                    <!-- Latitude & Longitude Inputs -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input 
+                            type="decimal" 
+                            label="Latitude" 
+                            value={latitude}
+                            onchange={handleLatChange}
+                            class="custom-input">
+                        </lightning-input>
+                        <lightning-input 
+                            type="decimal" 
+                            label="Longitude" 
+                            value={longitude}
+                            onchange={handleLongChange}
+                            class="custom-input">
+                        </lightning-input>
+                        <lightning-button 
+                            label="Get Weather" 
+                            onclick={getWeatherByCoords}
+                            class="slds-m-top_small custom-button">
+                        </lightning-button>
+                    </div>
+                </div>
+            </template>
+            
+            <!-- Loading Spinner -->
+            <template if:true={loading}>
+                <div class="slds-text-align_center slds-m-around_medium">
+                    <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                </div>
+            </template>
+            
+            <!-- Error Message -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error">
+                    {error}
+                </div>
+            </template>
+
+            <!-- Weather Data -->
+            <template if:true={weatherData}>
+                <div class="slds-box slds-theme_default weather-box">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <!-- Weather Icon & Temperature -->
+                        <div class="slds-col slds-size_1-of-3 slds-text-align_center weather-icon">
+                            <lightning-icon 
+                                icon-name={weatherIcon} 
+                                size="large" 
+                                class="slds-m-bottom_medium">
+                            </lightning-icon>
+                            <div class="slds-text-heading_medium slds-text-color_success">
+                                {weatherData.temperature}°C
+                            </div>
+                        </div>
+
+                        <!-- Weather Details -->
+                        <div class="slds-col slds-size_2-of-3 weather-details">
+                            <p><strong>Wind Speed:</strong> {weatherData.windSpeed} km/h</p>
+                            <p><strong>Humidity:</strong> {weatherData.humidity}%</p>
+                            <p><strong>Condition:</strong> {weatherData.clouds}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Send Weather Report Button -->
+                <div class="slds-text-align_center slds-m-top_large">
+                    <lightning-button 
+                        variant="brand"
+                        label=''
+                        onclick={handleSendReport}
+                        class="slds-m-top_large custom-button">
+                    </lightning-button>
+                </div>
+               
+            </template>
+        </div>
+    </lightning-card>
+</template>

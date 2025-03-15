@@ -1,0 +1,118 @@
+<template>
+    <lightning-card class="application-card">
+        <!-- Header Section -->
+        <div class="header-section">
+            <p class="location">TECHNIQUE & SYSTÈMES D'INFORMATION - SIÈGE INWI MARINA, CASABLANCA</p>
+            <h3 class="job-title">{labels.jobTitle}</h3>
+        </div>
+
+        <!-- Social Login Section -->
+        <div class="social-login-section">
+            <h2 class="section-title">Données personnelles</h2>
+            <div class="social-buttons">
+                <button class="facebook-btn">
+                    <img src="/resources/facebook-icon.png" alt="Facebook"/>
+                    Apply with Facebook
+                </button>
+                <button class="linkedin-btn">
+                    <img src="/resources/linkedin-icon.png" alt="LinkedIn"/>
+                    Apply with LinkedIn
+                </button>
+            </div>
+        </div>
+
+        <!-- Application Form -->
+        <div class="application-form">
+            <div class="form-grid">
+                <!-- Name Fields -->
+                <div class="form-row">
+                    <div class="form-column">
+                        <lightning-input 
+                            label="Prénom" 
+                            name="firstName" 
+                            value={firstName} 
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="form-column">
+                        <lightning-input 
+                            label="Nom" 
+                            name="lastName" 
+                            value={lastName} 
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <!-- Contact Fields -->
+                <div class="form-row">
+                    <div class="form-column">
+                        <lightning-input 
+                            label="Email" 
+                            name="email" 
+                            type="email" 
+                            value={email} 
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="form-column">
+                        <lightning-input 
+                            label="Téléphone" 
+                            name="phone" 
+                            type="tel" 
+                            value={phone} 
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <!-- Cover Letter -->
+                <div class="form-row full-width">
+                    <lightning-textarea 
+                        label="Lettre de motivation" 
+                        name="coverLetter" 
+                        value={coverLetter} 
+                        onchange={handleInputChange}>
+                    </lightning-textarea>
+                </div>
+
+                <!-- CV Upload -->
+                <div class="form-row full-width">
+                    <div class="file-upload-section">
+                        <lightning-file-upload
+                            label="Upload CV"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={recordId}
+                            onuploadfinished={handleFileUpload}
+                            multiple="false">
+                        </lightning-file-upload>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-row full-width">
+                    <div class="submit-section">
+                        <lightning-button 
+                            label="Envoyer la candidature" 
+                            onclick={submitApplication} 
+                            variant="brand"
+                            class="submit-button">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Status -->
+        <template if:true={fileId}>
+            <div class="upload-status">
+                <p>CV téléchargé avec succès!</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>

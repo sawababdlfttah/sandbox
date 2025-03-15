@@ -1,0 +1,53 @@
+<apex:page standardController="Contact" extensions="ContactExtension">
+    <apex:slds /> <!-- Include Salesforce Lightning Design System styles -->
+    
+    <style>
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+    
+    <div class="slds-scope">
+        <div style="text-align: right;">
+            <apex:image url="{!$Resource.CompanyLogo}" width="100"/>
+        </div>
+        <div style="text-align: left;">
+            <h1 class="slds-text-heading_large">{!$Organization.Name}</h1>
+        </div>
+        
+        <apex:form >
+            <apex:pageBlock title="Contact Information">
+                <apex:pageBlockButtons location="top" styleClass="no-print">
+                    <apex:commandButton value="Print" onclick="window.print();" reRender="none" styleClass="slds-button slds-button_neutral"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection columns="2">
+                    <apex:outputField value="{!Contact.FirstName}"/>
+                    <apex:outputField value="{!Contact.LastName}"/>
+                    <apex:outputField value="{!Contact.Email}"/>
+                    <apex:outputField value="{!Contact.Phone}"/>
+                    <apex:outputField value="{!Contact.Title}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <div class="slds-m-top_large">
+                <h2 class="slds-text-heading_medium">Signature</h2>
+                <div class="slds-box slds-m-top_small" style="height: 100px;">
+                    <!-- Signature space -->
+                </div>
+                <div class="slds-text-body_small slds-m-top_x-small">
+                    Date: <apex:outputText value="{0,date,MM/dd/yyyy}">
+                        <apex:param value="{!TODAY()}" />
+                    </apex:outputText>
+                </div>
+            </div>
+        </apex:form>
+    </div>
+
+    <script>
+    function printPage() {
+        window.print();
+    }
+    </script>
+</apex:page>

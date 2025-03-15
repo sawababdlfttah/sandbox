@@ -1,0 +1,114 @@
+<apex:page standardController="Opportunity" extensions="OpportunityCheckExtension">
+    <style>
+        .bold {
+        font-weight: bold;
+        }
+        .check-container {
+            border: 2px solid #8B4513;
+            padding: 30px;
+            font-family: 'Arial', 'Amiri', sans-serif;
+            background-color: #FFFAF0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+            overflow:hidden;
+
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 200px;
+            height: 60px;
+            background-image: url('{!$Resource.BankLogo}');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .amount {
+            font-weight: bold;
+            color: #8B4513;
+        }
+        .main-text {
+            font-size: 14px;
+            margin-bottom: 15px;
+        
+        	
+        }
+        .panel {
+            border: 1px solid #8B4513;
+            padding: 10px;
+            background-color: #FFF8DC;
+        }
+        .signature-area {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            opacity: 0.1;
+            font-size: 72px;
+            color: #8B4513;
+        }
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            z-index: -1;
+        }
+        .arabic {
+            font-family: 'Amiri', Arial, sans-serif;
+            text-align: right;
+            direction: rtl;
+
+        }
+    </style>
+
+    <div class="check-container">
+        <div class="background-pattern"></div>
+        <div class="watermark">التجاري وفا بنك</div>
+        <div class="header">
+            <div class="logo"></div>
+            <div>
+                <p>NON ENDOSSABLE <span class="arabic">غير قابل للتظهير</span></p>
+                <p class="amount">DH # {!opportunity.Amount} # <span class="arabic">درهم</span></p>
+            </div>
+        </div>
+        
+        <div class="main-text">
+            Payez contre ce chèque <div class="bold"> #Cent vingt mille Dirahms #</div>
+            <div class="arabic"><div class="bold"> # مائة وعشرون ألف درهم #</div></div>
+        </div>
+        
+        <div class="main-text">
+            A l'ordre de  <span class="bold">  {!opportunity.Name} </span><span class="arabic">لأمر</span>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between;">
+            <apex:panelGrid columns="1" styleClass="panel">
+                <apex:outputText value="Payable à" style="font-weight: bold;"/>
+                <apex:outputText value="AGENCE MEDIOUNA EXPANSION"/>
+                <apex:outputText value="1075,ROUTE DE MEDIOUNA"/>
+                <apex:outputText value="CASABLANCA"/>
+                <apex:outputText value="CASABLANCA"/>
+                <apex:outputText value="TEL: 0522221001"/>
+            </apex:panelGrid>
+            <div class="signature-area">
+                <p>A CASABLANCA Le {!opportunity.CloseDate}</p>
+                <div style="width: 150px; height: 50px; border-bottom: 1px solid #000; margin-top: 30px;"></div>
+                <p>Signature <span class="arabic">التوقيع</span></p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <p >Chèque : série AST N° <span class="bold">    {!opportunity.OrderNumber__c} </span><span class="arabic"> شيك : سلسلة رقم</span></p>
+        </div>
+    </div>
+</apex:page>

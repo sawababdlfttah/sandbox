@@ -1,0 +1,12 @@
+<apex:page standardController="Opportunity" extensions="OpportunityLineItemController">
+    <apex:pageBlock title="Opportunity Products">
+        <apex:pageBlockTable value="{!lineItems}" var="item">
+            <apex:column value="{!item.Product2.Name}" headerValue="Product" />
+            <apex:column value="{!item.Quantity}" headerValue="Quantity" />
+            <apex:column value="{!item.UnitPrice}" headerValue="Unit Price" />
+            <apex:column value="{!item.TotalPrice}" headerValue="Total Price" />
+             <apex:column value="{!item.Opportunity.Name}" headerValue=" Opportunity Name" />
+            
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

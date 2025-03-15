@@ -1,0 +1,81 @@
+<template>
+    <lightning-card title="Matchs de Football" icon-name="custom:custom87">
+        <div class="slds-m-around_medium">
+            <div class="slds-text-heading_medium slds-text-align_center slds-m-bottom_medium">
+                Matchs du {todayDate}
+            </div>
+            
+            <!-- Spinner de chargement -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Chargement des matchs" size="medium"></lightning-spinner>
+            </template>
+
+            <!-- Message d'erreur -->
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">Erreur</span>
+                    <h2>{error}</h2>
+                </div>
+            </template>
+
+            <!-- Liste des matchs -->
+            <template if:true={matches}>
+                <div class="slds-table_bordered" style="border-radius: 4px;">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-title_caps" scope="col">Heure</th>
+                                <th class="slds-text-title_caps" scope="col">Compétition</th>
+                                <th class="slds-text-title_caps" scope="col">Équipe Domicile</th>
+                                <th class="slds-text-title_caps" scope="col">Score</th>
+                                <th class="slds-text-title_caps" scope="col">Équipe Extérieure</th>
+                                <th class="slds-text-title_caps" scope="col">Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template if:true={matches.length}>
+                                <template for:each={matches} for:item="match">
+                                    <tr key={match.id} class="slds-hint-parent">
+                                        <td>{match.utcDate}</td>
+                                        <td>{match.competition}</td>
+                                        <td>{match.homeTeam}</td>
+                                        <td class="slds-text-align_center">{match.score}</td>
+                                        <td>{match.awayTeam}</td>
+                                        <td>
+                                            <lightning-badge label={match.status}></lightning-badge>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </template>
+                            <template if:false={matches.length}>
+                                <tr>
+                                    <td colspan="6" class="slds-text-align_center">
+                                        Aucun match programmé
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Boutons de pagination -->
+                <div class="slds-grid slds-grid_align-center slds-m-top_medium">
+                    <lightning-button-group>
+                        <lightning-button 
+                            label="Page précédente" 
+                            icon-name="utility:chevronleft"
+                            onclick={handlePreviousPage}
+                            disabled={isFirstPage}>
+                        </lightning-button>
+                        <lightning-button 
+                            label="Page suivante" 
+                            icon-name="utility:chevronright"
+                            onclick={handleNextPage}
+                            disabled={isLastPage}>
+                        </lightning-button>
+                    </lightning-button-group>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

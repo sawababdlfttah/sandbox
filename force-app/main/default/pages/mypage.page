@@ -1,0 +1,10 @@
+<apex:page standardController="yass__c" >
+    <apex:form >
+        <apex:pageBlock title="Custom New Page">
+            <!-- Add your custom fields here -->
+            <apex:inputField value="{!yass__c.test__c}"/>
+
+            <apex:commandButton action="{!save}" value="Save"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

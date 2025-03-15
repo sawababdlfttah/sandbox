@@ -1,0 +1,9 @@
+<template>
+    <div class="slds-text-heading_medium slds-align_absolute-center">Joindre Le contrat</div>
+    <div class="slds-align_absolute-center slds-m-top_xx-large">
+        <lightning-file-upload label="Upload a File" multiple="false"
+                               accept=".txt, .pdf, .doc, .docx, .jpg, .jpeg, .png"
+                               record-id={recordId}
+                               onuploadfinished={handleUploadFinished}></lightning-file-upload>
+    </div>
+</template>

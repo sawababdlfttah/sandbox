@@ -1,0 +1,117 @@
+<aura:component controller="JobApplicationController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:html tag="style">.toastMessage.forceActionsText{
+
+white-space : pre-line !important;
+
+}</aura:html>
+    <aura:attribute name="lastName" type="String" default=""/>
+    <aura:attribute name="firstName" type="String" default=""/>
+    <aura:attribute name="email" type="String" default=""/>
+    <aura:attribute name="phone" type="String" default=""/>
+    <aura:attribute name="coverLetter" type="String" default=""/>
+    <aura:attribute name="fileId" type="String"/>
+    <aura:attribute name="fileURL" type="String"/>
+    <aura:attribute name="jobOfferId" type="String"/>
+    <!--
+    <aura:attribute name="jobTitle" type="String" default="{!$Label.c.job}"/>
+-->
+    <!-- 
+    <aura:attribute name="jobDescription" type="String" default="{!$Label.c.desc_job}"/>
+-->
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- Component Markup -->
+       <!-- Header Section -->
+    <lightning:card title="{!'Postulez pour un emploi : ' + v.jobTitle}">
+        <!-- Header Section -->
+
+        <!-- Social Login Section -->
+        <div class="slds-card__body slds-p-horizontal_medium">
+            <h2 class="slds-text-heading_medium slds-m-bottom_small">Données personnelles</h2>
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning:button 
+                        label="Apply with Facebook"
+                        iconName="utility:social_facebook"
+                        onclick="{!c.loginWithFacebook}"
+                        class="slds-m-bottom_small"/>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning:button 
+                        label="Apply with LinkedIn"
+                        iconName="utility:social_linkedin"
+                        onclick="{!c.loginWithLinkedIn}"
+                        class="slds-m-bottom_small"/>
+                </div>
+            </div>
+
+            <!-- Application Form -->
+            <div class="slds-form slds-form_compound">
+                <!-- Name Fields -->
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row">
+                        <lightning:input 
+                            aura:id="firstNameInput"
+                            label="Prénom" 
+                            value="{!v.firstName}"
+                            required="true"
+                            class="slds-col slds-size_1-of-2"/>
+                        <lightning:input 
+                            aura:id="lastNameInput"
+                            label="Nom" 
+                            value="{!v.lastName}"
+                            required="true"
+                            class="slds-col slds-size_1-of-2"/>
+                    </div>
+                </div>
+
+                <!-- Contact Fields -->
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row">
+                        <lightning:input 
+                            aura:id="emailInput"
+                            label="Email" 
+                            type="email"
+                            value="{!v.email}"
+                            required="true"
+                            class="slds-col slds-size_1-of-2"/>
+                        <lightning:input 
+                            aura:id="phoneInput"
+                            label="Téléphone" 
+                            type="tel"
+                            value="{!v.phone}"
+                            required="true"
+                            class="slds-col slds-size_1-of-2"/>
+                    </div>
+                </div>
+
+                <!-- Cover Letter -->
+                <div class="slds-form-element">
+                    <lightning:textarea 
+                        aura:id="coverLetterInput"
+                        label="Lettre de motivation" 
+                        value="{!v.coverLetter}"/>
+                </div>
+
+                <!-- CV Upload -->
+                <div class="slds-form-element">
+                    <lightning:fileUpload 
+                        aura:id="fileUploader"
+                        label="Upload CV"
+                        multiple="false"
+                        accept="['.pdf', '.doc', '.docx']"
+                        onuploadfinished="{!c.handleFileUpload}"/>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="slds-form-element">
+                    <lightning:button 
+                        label="Envoyer la candidature"
+                        variant="brand"
+                        onclick="{!c.submitApplication}"/>
+                </div>
+            </div>
+        </div>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,10 @@
+<aura:component controller="ExampleController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:attribute name="selectedUserId" type="String"/>
+    <aura:attribute name="champ1Value" type="String"/>
+
+    <lightning:recordEditForm objectApiName="PhysicalEntity__c">
+        <lightning:inputField fieldName="User__c" onchange="{!c.handleUserChange}"/>
+        <lightning:inputField fieldName="Champ1__c" value="{!v.champ1Value}" disabled="true"/>
+        <lightning:button variant="brand" type="submit" name="save" label="Save"/>
+    </lightning:recordEditForm>
+</aura:component>

@@ -1,0 +1,29 @@
+<template>
+
+    <lightning-card  variant="Narrow"  title="Hello" icon-name="standard:account">
+        <p class="slds-p-horizontal_small">hello {myvalue}!</p>
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" label="enter same text" value={myvalue} onchange={handleonchange}></lightning-input> 
+        </div>
+            </lightning-card>
+
+    <lightning-card  variant="Narrow"  title="Hello" icon-name="standard:account">
+        <p class="slds-p-horizontal_small">hello {uppercaseName}!</p>
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" name="firstname" label ="first " onchange={handleonchangefi}></lightning-input> 
+            <lightning-input type="text" name="lastname" label ="last " onchange={handleonchangefi}></lightning-input> 
+        </div>
+    </lightning-card>
+
+    <lightning-card  variant="Narrow"  title="Hello" icon-name="standard:account">
+        <p class="slds-p-horizontal_small">hello {uppercaseName}!</p>
+            <lightning-input type="checkbox"  label ="click here  " onchange={handlechckbox}></lightning-input> 
+<template if:true={showme}>
+    i'm visible
+</template>
+<template if:false={showme}>
+    i'm not visible
+</template>
+    </lightning-card>
+
+</template>
